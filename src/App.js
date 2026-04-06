@@ -374,6 +374,17 @@ function App() {
               Tom Taylor
             </a>
           </p>
+                    <p>
+            Rebuilt by{' '}
+            <a
+              href="https://www.alyssajenkinson.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:text-blue-800 hover:underline"
+            >
+              Alyssa Jenkinson
+            </a>
+          </p>
           <p className="mt-2">
             LEGO data provided by the{' '}
             <a
