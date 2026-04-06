@@ -111,7 +111,7 @@ function App() {
 
       const fetchedParts = await fetchAllParts(normalizedSetNum);
 
-      const fetchedPartsNoSpares = fetchedParts.filter(part => part.is_spare == false)
+      const fetchedPartsNoSpares = fetchedParts.filter(part => part.is_spare === false)
       
       // Check if set has no parts
       if (fetchedPartsNoSpares.length === 0) {
