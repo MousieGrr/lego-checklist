@@ -376,10 +376,10 @@ function App() {
               Tom Taylor
             </a>
           </p>
-                    <p>
+          <p>
             Rebuilt by{' '}
             <a
-              href="https://www.alyssajenkinson.com"
+              href="https://alyssajenkinson.com"
               target="_blank"
               rel="noopener noreferrer"
               className="text-blue-600 hover:text-blue-800 hover:underline"
