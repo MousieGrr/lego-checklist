@@ -190,6 +190,7 @@ function App() {
       const allChecked = partCheckedCount === part.quantity;
       return {...part, allChecked};
   })
+  // eslint-disable-next-line
   const sortedParts = partsCompleted.sort((a, b) => {
     if (a.allChecked === b.allChecked) {return 0}
     if (a.allChecked > b.allChecked) {return 1}
