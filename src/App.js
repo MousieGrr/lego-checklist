@@ -110,15 +110,17 @@ function App() {
       setSetName(setData.name);
 
       const fetchedParts = await fetchAllParts(normalizedSetNum);
+
+      const fetchedPartsNoSpares = fetchedParts.filter(part => part.is_spare == false)
       
       // Check if set has no parts
-      if (fetchedParts.length === 0) {
+      if (fetchedPartsNoSpares.length === 0) {
         throw new Error('This set has no parts or is not a valid set number. Please try another set.');
       }
       
       // Group parts by part_num + color_id and sum their quantities
       const groupedPartsMap = new Map();
-      fetchedParts.forEach(part => {
+      fetchedPartsNoSpares.forEach(part => {
         const key = `${part.part.part_num}-${part.color.id}`;
         if (groupedPartsMap.has(key)) {
           // Add to existing part's quantity
