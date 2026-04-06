@@ -23,6 +23,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     - name: Build
+      env: # Or as an environment variable
+        REACT_APP_REBRICKABLE_API_KEY: ${{ secrets.REACT_APP_REBRICKABLE_API_KEY }}
       run: |
         npm install
         npm run build
