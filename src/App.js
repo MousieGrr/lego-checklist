@@ -131,7 +131,7 @@ function App() {
       });
       
       const groupedParts = Array.from(groupedPartsMap.values());
-      
+
       setParts(groupedParts);
       setCurrentSetNumber(normalizedSetNum);
       
@@ -184,6 +184,17 @@ function App() {
 
   const checkedCount = Object.values(checkedItems).reduce((sum, count) => sum + count, 0);
   const totalCount = parts.reduce((sum, part) => sum + part.quantity, 0);
+  const partsCompleted = parts.map((part) => {
+      const itemKey = `${part.part.part_num}-${part.color.id}`;
+      const partCheckedCount = checkedItems[itemKey] || 0;
+      const allChecked = partCheckedCount === part.quantity;
+      return {...part, allChecked};
+  })
+  const sortedParts = partsCompleted.sort((a, b) => {
+    if (a.allChecked === b.allChecked) {return 0}
+    if (a.allChecked > b.allChecked) {return 1}
+    if (a.allChecked < b.allChecked) {return -1}
+  })
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -257,7 +268,7 @@ function App() {
         {!loading && parts.length > 0 && (
           <div className="bg-white rounded-lg shadow overflow-hidden">
             <div className="divide-y divide-gray-200">
-              {parts.map((part, index) => {
+              {sortedParts.map((part, index) => {
                 const itemKey = `${part.part.part_num}-${part.color.id}`;
                 const partCheckedCount = checkedItems[itemKey] || 0;
                 const allChecked = partCheckedCount === part.quantity;
