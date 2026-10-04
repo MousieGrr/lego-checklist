@@ -332,93 +332,124 @@ function App() {
         )}
 
         {!loading && parts.length > 0 && (
-          <div className="bg-white rounded-lg shadow overflow-hidden">
-            <div className="divide-y divide-gray-200">
-              {sortedParts.map((part, index) => {
-                const itemKey = `${part.part.part_num}-${part.color.id}`;
-                const partCheckedCount = checkedItems[itemKey] || 0;
-                const allChecked = partCheckedCount === part.quantity;
+          <>
+            <div className="bg-white rounded-lg shadow overflow-hidden">
+              <div className="divide-y divide-gray-200">
+                {sortedParts.map((part, index) => {
+                  const itemKey = `${part.part.part_num}-${part.color.id}`;
+                  const partCheckedCount = checkedItems[itemKey] || 0;
+                  const allChecked = partCheckedCount === part.quantity;
 
-                return (
-                  <div
-                    key={`${part.part.part_num}-${part.color.id}-${index}`}
-                    className={`p-4 hover:bg-gray-50 transition-colors ${
-                      allChecked ? "bg-green-50" : ""
-                    }`}
-                  >
-                    <div className="flex items-start gap-4">
-                      {/* Part Image */}
-                      <div className="shrink-0 w-20 h-20 bg-gray-100 rounded flex items-center justify-center overflow-hidden">
-                        {part.part.part_img_url ? (
-                          <img
-                            src={part.part.part_img_url}
-                            alt={part.part.name}
-                            className="max-w-full max-h-full object-contain"
-                            onError={(e) => {
-                              (e.target as HTMLImageElement).style.display =
-                                "none";
-                            }}
-                          />
-                        ) : (
-                          <span className="text-gray-400 text-xs">
-                            No image
-                          </span>
-                        )}
-                      </div>
+                  return (
+                    <div
+                      key={`${part.part.part_num}-${part.color.id}-${index}`}
+                      className={`p-4 hover:bg-gray-50 transition-colors ${
+                        allChecked ? "bg-green-50" : ""
+                      }`}
+                    >
+                      <div className="flex items-start gap-4">
+                        {/* Part Image */}
+                        <div className="shrink-0 w-20 h-20 bg-gray-100 rounded flex items-center justify-center overflow-hidden">
+                          {part.part.part_img_url ? (
+                            <img
+                              src={part.part.part_img_url}
+                              alt={part.part.name}
+                              className="max-w-full max-h-full object-contain"
+                              onError={(e) => {
+                                (e.target as HTMLImageElement).style.display =
+                                  "none";
+                              }}
+                            />
+                          ) : (
+                            <span className="text-gray-400 text-xs">
+                              No image
+                            </span>
+                          )}
+                        </div>
 
-                      {/* Part Details */}
-                      <div className="flex-1 min-w-0">
-                        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-3">
-                          <div className="flex-1">
-                            <h3
-                              className={`font-medium text-gray-900 ${allChecked ? "line-through" : ""}`}
-                            >
-                              {part.part.name}
-                            </h3>
-                            <p className="text-sm text-gray-500 mt-1">
-                              Part #{part.part.part_num}
-                            </p>
-                            <p className="text-sm text-gray-600 mt-1">
-                              Color: {part.color.name}
-                            </p>
-                          </div>
-
-                          {/* Add/Remove Buttons */}
-                          <div className="flex items-center gap-3 md:ml-4">
-                            <button
-                              onClick={() => handleDecrement(part)}
-                              disabled={partCheckedCount === 0}
-                              className="w-10 h-10 flex items-center justify-center rounded-lg bg-red-100 text-red-700 hover:bg-red-200 disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed transition-colors font-bold text-xl"
-                              aria-label="Remove one"
-                            >
-                              −
-                            </button>
-                            <div className="flex items-center gap-2">
-                              <span className="text-2xl font-bold text-gray-900">
-                                {partCheckedCount}
-                              </span>
-                              <span className="text-2xl text-gray-400">/</span>
-                              <span className="text-2xl font-bold text-gray-900">
-                                {part.quantity}
-                              </span>
+                        {/* Part Details */}
+                        <div className="flex-1 min-w-0">
+                          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-3">
+                            <div className="flex-1">
+                              <h3
+                                className={`font-medium text-gray-900 ${allChecked ? "line-through" : ""}`}
+                              >
+                                {part.part.name}
+                              </h3>
+                              <p className="text-sm text-gray-500 mt-1">
+                                Part #{part.part.part_num}
+                              </p>
+                              <p className="text-sm text-gray-600 mt-1">
+                                Color: {part.color.name}
+                              </p>
                             </div>
-                            <button
-                              onClick={() => handleIncrement(part)}
-                              disabled={partCheckedCount === part.quantity}
-                              className="w-10 h-10 flex items-center justify-center rounded-lg bg-green-100 text-green-700 hover:bg-green-200 disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed transition-colors font-bold text-xl"
-                              aria-label="Add one"
-                            >
-                              +
-                            </button>
+
+                            {/* Add/Remove Buttons */}
+                            <div className="flex items-center gap-3 md:ml-4">
+                              <button
+                                onClick={() => handleDecrement(part)}
+                                disabled={partCheckedCount === 0}
+                                className="w-10 h-10 flex items-center justify-center rounded-lg bg-red-100 text-red-700 hover:bg-red-200 disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed transition-colors font-bold text-xl"
+                                aria-label="Remove one"
+                              >
+                                −
+                              </button>
+                              <div className="flex items-center gap-2">
+                                <span className="text-2xl font-bold text-gray-900">
+                                  {partCheckedCount}
+                                </span>
+                                <span className="text-2xl text-gray-400">
+                                  /
+                                </span>
+                                <span className="text-2xl font-bold text-gray-900">
+                                  {part.quantity}
+                                </span>
+                              </div>
+                              <button
+                                onClick={() => handleIncrement(part)}
+                                disabled={partCheckedCount === part.quantity}
+                                className="w-10 h-10 flex items-center justify-center rounded-lg bg-green-100 text-green-700 hover:bg-green-200 disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed transition-colors font-bold text-xl"
+                                aria-label="Add one"
+                              >
+                                +
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
-          </div>
+
+            {/* Export */}
+            <div className="mb-6 p-4 bg-white rounded-lg shadow flex justify-between items-center gap-2 gap-y-4 mt-6 flex-wrap">
+              <div className="flex flex-col gap-1">
+                <span>Export to Bricklink XML</span>
+                <span className="text-gray-500 text-sm">
+                  Use this to populate your Bricklink inventory or a wanted
+                  parts list
+                </span>
+              </div>
+              <div className="flex justify-end items-center gap-2">
+                <button
+                  type="button"
+                  className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+                  onClick={handleExportDownload}
+                >
+                  Download
+                </button>
+                <button
+                  type="button"
+                  className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+                  onClick={handleExportCopy}
+                >
+                  Copy to Clipboard
+                </button>
+              </div>
+            </div>
+          </>
         )}
 
         {!loading &&
@@ -433,27 +464,6 @@ function App() {
               </ol>
             </div>
           )}
-
-        {/* Export */}
-        <div className="mb-6 p-4 bg-white rounded-lg shadow flex justify-between items-center gap-2 mt-6">
-          <span>Export to Bricklink XML</span>
-          <div className="flex justify-end items-center gap-2">
-            <button
-              type="button"
-              className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
-              onClick={handleExportDownload}
-            >
-              Download
-            </button>
-            <button
-              type="button"
-              className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
-              onClick={handleExportCopy}
-            >
-              Copy to Clipboard
-            </button>
-          </div>
-        </div>
 
         {/* Footer */}
         <footer className="mt-12 pt-8 pb-4 border-t border-gray-200 text-center text-sm text-gray-600">
