@@ -2,7 +2,7 @@ name: NodeJS with Webpack
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build:
@@ -10,27 +10,27 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [24.x]
+        node-version: [26.x]
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - name: Build
-      env: # Or as an environment variable
-        REACT_APP_REBRICKABLE_API_KEY: ${{ secrets.REACT_APP_REBRICKABLE_API_KEY }}
-      run: |
-        npm install
-        npm run build
+      - name: Build
+        env: # Or as an environment variable
+          VITE_REBRICKABLE_API_KEY: ${{ secrets.REBRICKABLE_API_KEY }}
+        run: |
+          npm ci
+          npm run build
 
-    - name: Upload static files as artifact
-      id: deployment
-      uses: actions/upload-pages-artifact@v3 # or specific "vX.X.X" version tag for this action
-      with:
+      - name: Upload static files as artifact
+        id: deployment
+        uses: actions/upload-pages-artifact@v3 # or specific "vX.X.X" version tag for this action
+        with:
           path: build/
 
   deploy:
@@ -38,8 +38,8 @@ jobs:
 
     # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
     permissions:
-      pages: write      # to deploy to Pages
-      id-token: write   # to verify the deployment originates from an appropriate source
+      pages: write # to deploy to Pages
+      id-token: write # to verify the deployment originates from an appropriate source
 
     # Deploy to the github-pages environment
     environment:
